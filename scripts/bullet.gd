@@ -1,18 +1,21 @@
-extends Area2D
+class_name Bullet extends StaticBody2D
 
 var damage := 1
-var dir: Vector2
+var dir: Vector2i
+@onready var collision_mask_backup := collision_mask
 
 func _ready():
-    position += dir
+	collision_mask = 0
 
-func _on_turn():
-    position += dir
+func on_turn():
+	var collision = move_and_collide(dir)
 
-func _on_body_entered(body: Node2D):
-    if (body is Tank):
-        var tank = body as Tank
+	if (collision != null):
+		var collider = collision.get_collider()
 
-        tank._hp -= 1
-    
-    free()
+		if (collider is Tank):
+			(collider as Tank)._hp -= damage
+
+		queue_free()
+	
+	collision_mask = collision_mask_backup

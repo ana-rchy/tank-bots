@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=4 uid="uid://s5phshkmhm5l"]
+[gd_scene load_steps=5 format=4 uid="uid://s5phshkmhm5l"]
 
 [ext_resource type="Texture2D" uid="uid://b0gaciolajmqb" path="res://sprites/map.png" id="1_fgmgh"]
+[ext_resource type="PackedScene" uid="uid://trercgupe414" path="res://scenes/Tank.tscn" id="2_467aq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wb0j"]
 texture = ExtResource("1_fgmgh")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_c3stq"]
 tile_size = Vector2i(32, 32)
@@ -16,5 +18,13 @@ sources/0 = SubResource("TileSetAtlasSource_3wb0j")
 
 [node name="Map" type="TileMapLayer" parent="."]
 modulate = Color(0.3, 0.3, 0.3, 1)
+position = Vector2(-32, -32)
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAABAAAAAAAAAAAAAAABAAwAAAAAAAAAAAACAAAAAAAAAAAAAAACAAwAAAAAAAAAAAADAAAAAAAAAAAAAAADAAwAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAwAAAAAAAAAAAAGAAAAAAAAAAAAAAAGAAwAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAAwAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAwAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAwAAAAAAAAAAAALAAAAAAAAAAAAAAALAAwAAAAAAAAAAAAMAAAAAAAAAAAAAAAMAAEAAAAAAAAAAAAMAAIAAAAAAAAAAAAMAAMAAAAAAAAAAAAMAAQAAAAAAAAAAAAMAAUAAAAAAAAAAAAMAAYAAAAAAAAAAAAMAAcAAAAAAAAAAAAMAAgAAAAAAAAAAAAMAAkAAAAAAAAAAAAMAAoAAAAAAAAAAAAMAAsAAAAAAAAAAAAMAAwAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_c3stq")
+
+[node name="Tank" parent="." instance=ExtResource("2_467aq")]
+position = Vector2(0, 128)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-32, -32)
+anchor_mode = 0

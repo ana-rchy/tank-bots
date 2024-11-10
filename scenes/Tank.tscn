@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://trercgupe414"]
+[gd_scene load_steps=6 format=3 uid="uid://trercgupe414"]
 
 [ext_resource type="Texture2D" uid="uid://dd12hug24hk2j" path="res://sprites/tank.png" id="1_75bku"]
 [ext_resource type="Script" path="res://scripts/tank.gd" id="1_rshq0"]
+[ext_resource type="PackedScene" uid="uid://c4p30kvevusrw" path="res://scenes/Bullet.tscn" id="2_8npdc"]
+[ext_resource type="Script" path="res://scripts/test_script.gd" id="3_oro0o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjysh"]
 size = Vector2(32, 32)
 
-[node name="Tank" type="StaticBody2D"]
+[node name="Tank" type="StaticBody2D" node_paths=PackedStringArray("_player_script", "_bullets_holder")]
 script = ExtResource("1_rshq0")
+_player_script = NodePath("PlayerScript")
+_bullets_holder = NodePath("Bullets")
+_bullet_scene = ExtResource("2_8npdc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_75bku")
@@ -16,3 +21,13 @@ centered = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_qjysh")
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="PlayerScript" type="Node" parent="."]
+script = ExtResource("3_oro0o")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
