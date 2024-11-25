@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://s5phshkmhm5l"]
+[gd_scene load_steps=7 format=4 uid="uid://s5phshkmhm5l"]
 
 [ext_resource type="Texture2D" uid="uid://b0gaciolajmqb" path="res://sprites/map.png" id="1_fgmgh"]
-[ext_resource type="PackedScene" uid="uid://trercgupe414" path="res://scenes/Tank.tscn" id="2_467aq"]
+[ext_resource type="Script" path="res://scripts/turn_wizard.gd" id="1_nrbxh"]
+[ext_resource type="PackedScene" uid="uid://ntkewvba3lxu" path="res://scenes/TestTank2.tscn" id="2_sidna"]
+[ext_resource type="PackedScene" uid="uid://bqwn7ruyh3srh" path="res://scenes/TestTank.tscn" id="3_kddpg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wb0j"]
 texture = ExtResource("1_fgmgh")
@@ -16,15 +18,28 @@ sources/0 = SubResource("TileSetAtlasSource_3wb0j")
 
 [node name="Node2D" type="Node2D"]
 
+[node name="TurnWizard" type="Node" parent="." node_paths=PackedStringArray("tanks")]
+script = ExtResource("1_nrbxh")
+tanks = [NodePath("../Tank"), NodePath("../Tank2")]
+
+[node name="Timer" type="Timer" parent="TurnWizard"]
+wait_time = 0.5
+autostart = true
+
 [node name="Map" type="TileMapLayer" parent="."]
 modulate = Color(0.3, 0.3, 0.3, 1)
 position = Vector2(-32, -32)
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAABAAAAAAAAAAAAAAABAAwAAAAAAAAAAAACAAAAAAAAAAAAAAACAAwAAAAAAAAAAAADAAAAAAAAAAAAAAADAAwAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAwAAAAAAAAAAAAGAAAAAAAAAAAAAAAGAAwAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAAwAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAwAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAwAAAAAAAAAAAALAAAAAAAAAAAAAAALAAwAAAAAAAAAAAAMAAAAAAAAAAAAAAAMAAEAAAAAAAAAAAAMAAIAAAAAAAAAAAAMAAMAAAAAAAAAAAAMAAQAAAAAAAAAAAAMAAUAAAAAAAAAAAAMAAYAAAAAAAAAAAAMAAcAAAAAAAAAAAAMAAgAAAAAAAAAAAAMAAkAAAAAAAAAAAAMAAoAAAAAAAAAAAAMAAsAAAAAAAAAAAAMAAwAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_c3stq")
 
-[node name="Tank" parent="." instance=ExtResource("2_467aq")]
+[node name="Tank" parent="." instance=ExtResource("2_sidna")]
 position = Vector2(0, 128)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-32, -32)
 anchor_mode = 0
+
+[node name="Tank2" parent="." instance=ExtResource("3_kddpg")]
+position = Vector2(160, 128)
+
+[connection signal="timeout" from="TurnWizard/Timer" to="TurnWizard" method="_on_timeout"]

@@ -1,4 +1,4 @@
 extends PlayerScript
 
 func on_turn(tank: Tank):
-	tank.shoot(Tank.Direction.LEFT)
+	tank.shoot(Tank.Direction.RIGHT)

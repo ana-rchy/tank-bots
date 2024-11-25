@@ -16,14 +16,6 @@ var _enemy_tank: Tank
 var _hp := 5
 var _actions := 0
 
-func _on_timeout():
-	_actions = clampi(_actions + 1, 0, MAX_STORED_ACTIONS)
-
-	_player_script.on_turn(self)
-
-	for bullet in get_own_bullets():
-		bullet.on_turn()
-
 func move(dir_enum: Direction) -> MoveResult:
 	if (_actions <= 0):
 		return MoveResult.OUT_OF_ACTIONS
@@ -59,7 +51,7 @@ func shoot(dir_enum: Direction) -> ShootResult:
 	return ShootResult.OK
 
 func get_own_position() -> Vector2i:
-	return position / SPRITE_SIZE as Vector2i
+	return global_position / SPRITE_SIZE as Vector2i
 
 func get_enemy_position() -> Vector2i:
 	if (_enemy_tank != null):

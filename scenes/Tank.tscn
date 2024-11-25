@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dd12hug24hk2j" path="res://sprites/tank.png" id="1_75bku"]
 [ext_resource type="Script" path="res://scripts/tank.gd" id="1_rshq0"]
 [ext_resource type="PackedScene" uid="uid://c4p30kvevusrw" path="res://scenes/Bullet.tscn" id="2_8npdc"]
-[ext_resource type="Script" path="res://scripts/test_script.gd" id="3_oro0o"]
+[ext_resource type="Script" path="res://scripts/player_script.gd" id="4_4iahg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjysh"]
 size = Vector2(32, 32)
@@ -24,10 +24,5 @@ shape = SubResource("RectangleShape2D_qjysh")
 
 [node name="Bullets" type="Node2D" parent="."]
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
 [node name="PlayerScript" type="Node" parent="."]
-script = ExtResource("3_oro0o")
-
-[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
+script = ExtResource("4_4iahg")
