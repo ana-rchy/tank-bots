@@ -14,8 +14,8 @@ func _on_timeout():
 		if (tank == null):
 			break
 
-		for bullet in tank.get_own_bullets():
-			bullet.on_turn()
+		for bullet in tank.get_bullets():
+			bullet._on_turn()
 
 	for tank in tanks:
 		if (tank == null):
@@ -24,3 +24,5 @@ func _on_timeout():
 		if (tank._hp <= 0):
 			print(tank.name, ": damn")
 			tank.queue_free()
+
+		tank._position_history.append(tank.get_pos())

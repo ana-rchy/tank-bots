@@ -13,8 +13,14 @@ const CONTACT_DAMAGE = 2
 @export var _bullet_scene: PackedScene
 
 var _enemy_tank: Tank
+var _position_history: Array[Vector2i]
 var _hp := 5
 var _actions := 0
+
+func _ready():
+	_position_history.append(get_pos())
+
+
 
 func move(dir_enum: Direction) -> MoveResult:
 	if (_actions <= 0):
@@ -40,26 +46,36 @@ func shoot(dir_enum: Direction) -> ShootResult:
 
 	_actions -= 1
 
-	var dir = dir_to_vector(dir_enum) * SPRITE_SIZE
 	var bullet = _bullet_scene.instantiate()
 	
-	bullet.dir = dir
+	bullet.dir = dir_to_vector(dir_enum) * SPRITE_SIZE
 	bullet.global_position = global_position
 
 	_bullets_holder.add_child(bullet)
 
 	return ShootResult.OK
 
-func get_own_position() -> Vector2i:
+
+
+func get_pos() -> Vector2i:
 	return global_position / SPRITE_SIZE as Vector2i
 
-func get_enemy_position() -> Vector2i:
+func get_enemy_pos() -> Vector2i:
 	if (_enemy_tank != null):
-		return _enemy_tank.get_own_position()
+		return _enemy_tank.get_pos()
 	else:
 		return Vector2i(-1, -1)
 
-func get_own_bullets() -> Array[Bullet]:
+func get_pos_history() -> Array[Vector2i]:
+	return _position_history
+
+func get_enemy_pos_history() -> Array[Vector2i]:
+	if (_enemy_tank != null):
+		return _enemy_tank.get_pos_history()
+	else:
+		return []
+
+func get_bullets() -> Array[Bullet]:
 	var bullets: Array[Bullet]
 	var bullet_nodes = _bullets_holder.get_children()
 
@@ -69,7 +85,9 @@ func get_own_bullets() -> Array[Bullet]:
 	return bullets
 
 func get_enemy_bullets() -> Array[Bullet]:
-	return _enemy_tank.get_own_bullets()
+	return _enemy_tank.get_bullets()
+
+
 
 func dir_to_vector(dir: Direction) -> Vector2:
 	match dir:
