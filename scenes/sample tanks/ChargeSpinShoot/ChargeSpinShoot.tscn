@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b678a6tugnrww"]
+
+[ext_resource type="PackedScene" uid="uid://trercgupe414" path="res://scenes/Tank.tscn" id="1_t4ctg"]
+[ext_resource type="Script" path="res://scenes/sample tanks/ChargeSpinShoot/ChargeSpinShoot.gd" id="2_lsnfy"]
+
+[node name="ChargeSpinShoot" instance=ExtResource("1_t4ctg")]
+
+[node name="PlayerScript" parent="." index="3"]
+script = ExtResource("2_lsnfy")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b21gd0faeftks"]
+
+[ext_resource type="PackedScene" uid="uid://trercgupe414" path="res://scenes/Tank.tscn" id="1_p13h1"]
+[ext_resource type="Script" path="res://scenes/sample tanks/PingPong/PingPong.gd" id="2_rq74t"]
+
+[node name="PingPong" instance=ExtResource("1_p13h1")]
+
+[node name="PlayerScript" parent="." index="3"]
+script = ExtResource("2_rq74t")

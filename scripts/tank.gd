@@ -11,6 +11,7 @@ const CONTACT_DAMAGE = 2
 @export var _player_script: PlayerScript
 @export var _bullets_holder: Node2D
 @export var _bullet_scene: PackedScene
+@export var _name_label: Label
 
 var _enemy_tank: Tank
 var _position_history: Array[Vector2i]
@@ -19,6 +20,8 @@ var _actions := 0
 
 func _ready():
 	_position_history.append(get_pos())
+
+	_name_label.text = name
 
 
 
@@ -48,7 +51,7 @@ func shoot(dir_enum: Direction) -> ShootResult:
 
 	var bullet = _bullet_scene.instantiate()
 	
-	bullet.dir = dir_to_vector(dir_enum) * SPRITE_SIZE
+	bullet._dir = dir_to_vector(dir_enum) * SPRITE_SIZE
 	bullet.global_position = global_position
 
 	_bullets_holder.add_child(bullet)
@@ -86,6 +89,9 @@ func get_bullets() -> Array[Bullet]:
 
 func get_enemy_bullets() -> Array[Bullet]:
 	return _enemy_tank.get_bullets()
+
+func get_action_count() -> int:
+	return _actions
 
 
 

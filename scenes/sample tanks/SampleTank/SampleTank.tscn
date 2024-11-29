@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqodu5bpijm6k"]
+
+[ext_resource type="PackedScene" uid="uid://trercgupe414" path="res://scenes/Tank.tscn" id="1_g5kp1"]
+[ext_resource type="Script" path="res://scenes/sample tanks/SampleTank/SampleTank.gd" id="2_iehp8"]
+
+[node name="SampleTank" instance=ExtResource("1_g5kp1")]
+
+[node name="PlayerScript" parent="." index="3"]
+script = ExtResource("2_iehp8")

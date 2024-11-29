@@ -1,6 +1,21 @@
 extends Node
 
-@export var tanks: Array[Tank]
+@export var tank_holders: Array[Node2D]
+
+var tanks: Array[Tank]
+
+func _ready():
+	for holder in tank_holders:
+		tanks.append(holder.get_children()[0] as Tank)
+	
+	tanks[0]._enemy_tank = tanks[1]
+	tanks[1]._enemy_tank = tanks[0]
+
+	for tank in tanks:
+		if (tank == null):
+			break
+
+		tank._player_script.start(tank)
 
 func _on_timeout():
 	for tank in tanks:

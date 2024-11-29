@@ -1,22 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://trercgupe414"]
+[gd_scene load_steps=7 format=3 uid="uid://trercgupe414"]
 
 [ext_resource type="Texture2D" uid="uid://dd12hug24hk2j" path="res://sprites/tank.png" id="1_75bku"]
 [ext_resource type="Script" path="res://scripts/tank.gd" id="1_rshq0"]
 [ext_resource type="PackedScene" uid="uid://c4p30kvevusrw" path="res://scenes/Bullet.tscn" id="2_8npdc"]
 [ext_resource type="Script" path="res://scripts/player_script.gd" id="4_4iahg"]
+[ext_resource type="FontFile" uid="uid://dgduhissbup4d" path="res://resources/FairfaxHD.ttf" id="5_uutkb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjysh"]
 size = Vector2(32, 32)
 
-[node name="Tank" type="StaticBody2D" node_paths=PackedStringArray("_player_script", "_bullets_holder")]
+[node name="Tank" type="StaticBody2D" node_paths=PackedStringArray("_player_script", "_bullets_holder", "_name_label")]
 script = ExtResource("1_rshq0")
 _player_script = NodePath("PlayerScript")
 _bullets_holder = NodePath("Bullets")
 _bullet_scene = ExtResource("2_8npdc")
+_name_label = NodePath("Sprite2D/Label")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_75bku")
 centered = false
+
+[node name="Label" type="Label" parent="Sprite2D"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = 4.0
+offset_right = 100.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_uutkb")
+horizontal_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 16)

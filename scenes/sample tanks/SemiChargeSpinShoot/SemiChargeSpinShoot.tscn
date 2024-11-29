@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpho3inks6k6b"]
+
+[ext_resource type="PackedScene" uid="uid://trercgupe414" path="res://scenes/Tank.tscn" id="1_17gpe"]
+[ext_resource type="Script" path="res://scenes/sample tanks/SemiChargeSpinShoot/SemiChargeSpinShoot.gd" id="2_xpnsj"]
+
+[node name="SemiChargeSpinShoot" instance=ExtResource("1_17gpe")]
+
+[node name="PlayerScript" parent="." index="3"]
+script = ExtResource("2_xpnsj")
