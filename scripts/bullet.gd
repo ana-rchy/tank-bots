@@ -1,5 +1,7 @@
 class_name Bullet extends StaticBody2D
 
+@export var _anim_tree: AnimationTree
+
 var _position_history: Array[Vector2i]
 var _dir: Vector2i
 var _damage := 1
@@ -9,6 +11,8 @@ var _damage := 1
 func _ready():
 	collision_mask = 0
 	_position_history.append(get_pos())
+
+	_anim_tree["parameters/blend_position"] = _dir
 
 func _on_turn():
 	var collision = move_and_collide(_dir)

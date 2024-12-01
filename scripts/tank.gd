@@ -12,6 +12,8 @@ const CONTACT_DAMAGE = 2
 @export var _bullets_holder: Node2D
 @export var _bullet_scene: PackedScene
 @export var _name_label: Label
+@export var _body_anim_tree: AnimationTree
+@export var _turret_anim_tree: AnimationTree
 
 var _enemy_tank: Tank
 var _position_history: Array[Vector2i]
@@ -40,6 +42,8 @@ func move(dir_enum: Direction) -> MoveResult:
 			return MoveResult.HIT_TANK
 		else:
 			return MoveResult.HIT_WALL
+	
+	_body_anim_tree["parameters/blend_position"] = dir
 
 	return MoveResult.OK
 
@@ -55,6 +59,8 @@ func shoot(dir_enum: Direction) -> ShootResult:
 	bullet.global_position = global_position
 
 	_bullets_holder.add_child(bullet)
+
+	_turret_anim_tree["parameters/blend_position"] = bullet._dir
 
 	return ShootResult.OK
 
