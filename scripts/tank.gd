@@ -1,7 +1,7 @@
 class_name Tank extends StaticBody2D
 
 enum Direction {UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT}
-enum MoveResult { OK, OUT_OF_ACTIONS, HIT_WALL, HIT_TANK }
+enum MoveResult { OK, OUT_OF_ACTIONS, BESIDE_WALL, HIT_WALL, HIT_TANK }
 enum ShootResult { OK, OUT_OF_ACTIONS }
 
 const SPRITE_SIZE = 32
@@ -12,6 +12,7 @@ const CONTACT_DAMAGE = 2
 @export var _bullets_holder: Node2D
 @export var _bullet_scene: PackedScene
 @export var _name_label: Label
+@export var _hp_label: Label
 @export var _body_anim_tree: AnimationTree
 @export var _turret_anim_tree: AnimationTree
 
@@ -31,6 +32,8 @@ func move(dir_enum: Direction) -> MoveResult:
 	if (_actions <= 0):
 		return MoveResult.OUT_OF_ACTIONS
 
+	var prev_pos = global_position
+
 	_actions -= 1
 
 	var dir = dir_to_vector(dir_enum) * SPRITE_SIZE
@@ -41,7 +44,10 @@ func move(dir_enum: Direction) -> MoveResult:
 			_hp -= CONTACT_DAMAGE
 			return MoveResult.HIT_TANK
 		else:
-			return MoveResult.HIT_WALL
+			if (global_position != prev_pos):
+				return MoveResult.BESIDE_WALL
+			else:
+				return MoveResult.HIT_WALL
 	
 	_body_anim_tree["parameters/blend_position"] = dir
 
@@ -95,6 +101,12 @@ func get_bullets() -> Array[Bullet]:
 
 func get_enemy_bullets() -> Array[Bullet]:
 	return _enemy_tank.get_bullets()
+
+func get_hp() -> int:
+	return _hp
+
+func get_enemy_hp() -> int:
+	return _enemy_tank.get_hp()
 
 func get_action_count() -> int:
 	return _actions

@@ -17,5 +17,5 @@ func on_turn(tank: Tank):
 		var move_res = tank.move(move_dir)
 		tank.shoot(shoot_dir)
 
-		if (move_res == Tank.MoveResult.HIT_WALL):
+		if (move_res == Tank.MoveResult.BESIDE_WALL):
 			move_dir = (move_dir + 4) % 8 as Tank.Direction
