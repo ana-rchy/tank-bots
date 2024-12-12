@@ -64,6 +64,8 @@ func shoot(dir_enum: Direction) -> ShootResult:
 	bullet._dir = dir_to_vector(dir_enum) * SPRITE_SIZE
 	bullet.global_position = global_position
 
+	add_collision_exception_with(bullet)
+
 	_bullets_holder.add_child(bullet)
 
 	_turret_anim_tree["parameters/blend_position"] = bullet._dir

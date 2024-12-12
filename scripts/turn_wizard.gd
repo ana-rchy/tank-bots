@@ -8,10 +8,12 @@ var tanks: Array[Tank]
 
 func _ready():
 	for holder in tank_holders:
-		tanks.append(holder.get_children()[0] as Tank)
+		if (len(holder.get_children()) > 0):
+			tanks.append(holder.get_children()[0] as Tank)
 	
-	tanks[0]._enemy_tank = tanks[1]
-	tanks[1]._enemy_tank = tanks[0]
+	if (len(tanks) == 2):
+		tanks[0]._enemy_tank = tanks[1]
+		tanks[1]._enemy_tank = tanks[0]
 
 	for tank in tanks:
 		if (tank == null):
@@ -21,7 +23,7 @@ func _ready():
 
 func _on_timeout():
 	for i in (len(tanks)):
-		if (tanks[i] == null):
+		if (i < len(tanks) and tanks[i] == null):
 			tanks.remove_at(i)
 
 	if (len(tanks) == 1):
